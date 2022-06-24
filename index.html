@@ -28,6 +28,7 @@
 <body>
   <h1>Electron Auto Update Example</h1>
   <p>Current version: <span id="version">vX.Y.Z</span></p>
+  <div id="messages"></div>
   <div id="notification" class="hidden">
     <p id="message"></p>
     <button id="close-button" onClick="closeNotification()">
@@ -64,6 +65,13 @@
       restartButton.classList.remove('hidden');
       notification.classList.remove('hidden');
     });
+
+    ipcRenderer.on('message', function(event, text) {
+  var container = document.getElementById('messages');
+  var message = document.createElement('div');
+  message.innerHTML = text;
+  container.appendChild(message);
+})
 
     function closeNotification() {
       notification.classList.add('hidden');
