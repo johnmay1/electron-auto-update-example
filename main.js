@@ -1,5 +1,10 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const log = require('electron-log');
 const { autoUpdater } = require('electron-updater');
+
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
 
 let mainWindow;
 
@@ -9,6 +14,7 @@ function createWindow () {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false
     },
   });
   mainWindow.loadFile('index.html');
